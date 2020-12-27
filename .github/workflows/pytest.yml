@@ -1,11 +1,19 @@
-on:
-    push
+name: Pytest
+on: push
 jobs:
     pytest-job:
+        name: Pytest job
         runs-on: ubuntu-latest
         steps:
-        - name: GitHub Action for pytest
-          uses: cclauss/GitHub-Action-for-pytest@0.5.0
-          with:
-              args: pytest
+        - uses: actions/checkout@v2
+        - name: Setup Python
+          uses: actions/setup-python@v2
+          with: 
+            python-version: 3.6
+        - name: Install dependencies
+          run: |
+              python -m pip install --upgrade pip
+              pip install pytest
+        - name: Run tests
+          run: pytest
 
